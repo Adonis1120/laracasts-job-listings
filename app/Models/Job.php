@@ -1,51 +1,46 @@
 <?php
 
 namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-Class Job {
-    public static function all(): array {
-        return [
-            [
-                "id" => 1,
-                "title" => "Director",
-                "salary" => "$20,000"
-            ],
-            [
-                "id" => 2,
-                "title" => "Software Developer",
-                "salary" => "$15,000"
-            ],
-            [
-                "id" => 3,
-                "title" => "Web Developer",
-                "salary" => "$10,000"
-            ],
-            [
-                "id" => 4,
-                "title" => "Mobile App Developer",
-                "salary" => "$11,000"
-            ],
-            [
-                "id" => 5,
-                "title" => "Game Developer",
-                "salary" => "$10,500"
-            ]
-        ];
-    }
+Class Job extends Model {
+    protected $table = "job_listings";
 
-    public static function find(int $id): array {
-        $job = Arr::first(static::all(), fn($job) => $job["id"] == $id);
-        /*
-        $job = Arr::first($jobs, function ($job) use ($id) {
-            return $job["id"] == $id;
-        });
-        */
-
-        if (!$job) {
-            abort(404);
-        }
-
-        return $job;
-    }
+    protected $fillable = ["title", "salary"];
 }
+
+/*
+Play this in the terminal
+
+php artisan tinker
+Psy Shell v0.12.7 (PHP 8.2.4 — cli) by Justin Hileman
+> $name = "affkdfj"
+= "affkdfj"
+
+> App\Models\Job::find(4);
+= App\Models\Job {#5209
+    id: 4,
+    created_at: "2025-02-12 02:34:23",
+    updated_at: "2025-02-12 02:34:23",
+    title: "ACME Director",
+    salary: "$50,000",
+  }
+
+> $job = App\Models\Job::find(4)
+= App\Models\Job {#5229
+    id: 4,
+    created_at: "2025-02-12 02:34:23",
+    updated_at: "2025-02-12 02:34:23",
+    title: "ACME Director",
+    salary: "$50,000",
+  }
+
+> $job->title;
+= "ACME Director"
+
+> $job->delete();
+= true
+
+*/
