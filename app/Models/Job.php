@@ -10,6 +10,10 @@ Class Job extends Model {
     protected $table = "job_listings";
 
     protected $fillable = ["title", "salary"];
+
+    public function employer() {
+      return $this->belongsTo(Employer::class);
+    }
 }
 
 /*
@@ -44,4 +48,31 @@ Psy Shell v0.12.7 (PHP 8.2.4 — cli) by Justin Hileman
 > $job->delete();
 = true
 
+*/
+
+/*
+For relationship
+
+php artisan tinker
+Psy Shell v0.12.7 (PHP 8.2.4 — cli) by Justin Hileman
+> $job = App\Models\Job::first();
+= App\Models\Job {#5221
+    id: 1,
+    created_at: "2025-02-12 06:01:54",
+    updated_at: "2025-02-12 06:01:54",
+    employer_id: 1,
+    title: "Survey Researcher",
+    salary: "$9439USD",
+  }
+
+> $job->employer;
+= App\Models\Employer {#6238
+    id: 1,
+    name: "Johnson, Schumm and Dietrich",
+    created_at: "2025-02-12 06:01:54",
+    updated_at: "2025-02-12 06:01:54",
+  }
+
+> $job->employer->name;
+= "Johnson, Schumm and Dietrich"
 */
