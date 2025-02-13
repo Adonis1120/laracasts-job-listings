@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 Class Job extends Model {
     use HasFactory;
-    protected $table = "job_listings";
+    protected $table = 'job_listings';
 
-    protected $fillable = ["title", "salary"];
+    protected $guarded = []; // Disable the fillable security feature entirely on the model.
+    // protected $fillable = ['title', 'salary', 'employer_id'];
 
     public function employer() {
       return $this->belongsTo(Employer::class);
     }
 
     public function tags() {
-      return $this->belongsToMany(Tag::class, foreignPivotKey: "job_listing_id"); // explicitly assigning the job_listing_id because we manually assigned its table to job_listings for jobs where laravel automatically recognized it as job_id instead of job_listing_id
+      return $this->belongsToMany(Tag::class, foreignPivotKey: 'job_listing_id'); // explicitly assigning the job_listing_id because we manually assigned its table to job_listings for jobs where laravel automatically recognized it as job_id instead of job_listing_id
     }
 }
 
