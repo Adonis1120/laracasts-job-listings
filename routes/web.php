@@ -89,3 +89,42 @@ Route::delete('/jobs/{id}', function ($id) {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+/*
+Other types of routing (using the show route)
+1. Basic Routing
+As used above
+
+2. Model Binding
+Route::get('/jobs/{job}', function (Job $job) {
+    return view('jobs.show', ['job' => $job]);
+});
+
+3. Model Binding Specifying the Column
+Route::get('/jobs/{job:slug}', function (Job $job) {
+    return view('jobs.show', ['job' => $job]);
+});
+
+4. Dedicated Controller Classes
+Route::get('/jobs/{job}', [JobController::class], 'show');
+
+5. Group Routes
+Route::controller(JobController::class)->group(function () {
+    Route::get('/jobs', 'index');
+    Route::get('/jobs/{job}', 'show');
+    Route::get('/jobs', 'store');
+});
+
+6. Route Resource
+Route::resource('jobs', JobController::class);
+
+6. Route Resource (using except/only)
+Route::resource('jobs', JobController::class, [
+    'except' => ['edit', 'delete']
+    // 'only' => ['index', 'show']
+]);
+
+8. Route View
+Route::view('/', 'home');
+
+*/
