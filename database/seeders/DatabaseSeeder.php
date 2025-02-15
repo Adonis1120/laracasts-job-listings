@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'test@example.com',
+            'password' => '12345678'
         ]);
 
         $this->call(JobSeeder::class);
