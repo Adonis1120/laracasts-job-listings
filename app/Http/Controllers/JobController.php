@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Gate;
 //use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobPosted;
 
 class JobController extends Controller
 {
@@ -32,11 +34,15 @@ class JobController extends Controller
         ]);
     
         // request()->all
-        Job::create([
+        $job = Job::create([
             'title' => request('title'),
             'salary' => request('salary'),
             'employer_id' => 1
         ]);
+
+        Mail::to($job->employer->user)->send(   // You can specify ->user->email but Laravel automatically detect it while using Mail class
+            new JobPosted($job) // pass the job instance into the constructor of Mailable
+        );
     
         return redirect('/jobs');
     }

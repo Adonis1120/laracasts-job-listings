@@ -7,6 +7,26 @@ use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
 use Barryvdh\Debugbar\DataCollector\SessionCollector;
 
+/*
+Test Mail Content
+
+Route::get('test', function () {
+    return new \App\Mail\JobPosted();
+});
+
+Test Mail Delivery: Transfer to JobController store, but with job instance for dynamic email us instance
+
+Route::get('test', function () {
+    \Illuminate\Support\Facades\Mail::to('adonisimperial@yahoo.com')->send(
+        new \App\Mail\JobPosted()
+    );
+
+    return 'Done';
+});
+
+Both Test Above: Test in the browser with [lochalhost app_url]/test
+*/
+
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
 
