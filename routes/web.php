@@ -27,6 +27,20 @@ Route::get('test', function () {
 Both Test Above: Test in the browser with [lochalhost app_url]/test
 */
 
+Route::get('test', function () {
+    // for queue
+    //dispatch(function() {
+    //    logger('hello from the queue');
+    //}); // you can also use delay(5) to delay for 5 seconds
+
+    // for job
+    $job = \App\Models\Job::first();
+    \App\Jobs\TranslateJob::dispatch($job);
+
+    return 'Done';
+});
+// Use php artisan queue:work on the terminal to make both jobs and queue work
+
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
 

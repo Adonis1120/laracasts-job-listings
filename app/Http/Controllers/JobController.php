@@ -40,9 +40,9 @@ class JobController extends Controller
             'employer_id' => 1
         ]);
 
-        Mail::to($job->employer->user)->send(   // You can specify ->user->email but Laravel automatically detect it while using Mail class
+        Mail::to($job->employer->user)->queue(   // You can specify ->user->email but Laravel automatically detect it while using Mail class; you can use send() instead of queue() either
             new JobPosted($job) // pass the job instance into the constructor of Mailable
-        );
+        );  // php artisan queue:work to make the queue work or use redis/supervisor or cron to make it work in the background on the production
     
         return redirect('/jobs');
     }
